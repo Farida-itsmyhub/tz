@@ -1,6 +1,6 @@
 FROM pytorch/pytorch:latest
 
-RUN mkdir /usr/src/app/
+RUN mkdir -p /usr/src/app/dataset/
 
 WORKDIR /usr/src/app/
 
@@ -16,7 +16,9 @@ RUN apt-get update && \
 
 RUN python3 -m pip install -r requirements.txt
 
-COPY . /usr/src/app/
+COPY /data_out /usr/src/app/data_out
+COPY /param /usr/src/app/param
+COPY start.py /usr/src/app/
 
 RUN echo $'#!/bin/sh\n\
 envsubst < /dataset > /dataset  "$@"'
